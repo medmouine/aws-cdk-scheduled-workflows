@@ -1,24 +1,53 @@
 {
-  "name": "aws-cdk-scheduler",
+  "name": "aws-cdk-scheduled-workflows",
   "version": "0.1.0",
   "main": "lib/index.ts",
+  "license": "Apache-2.0",
   "scripts": {
     "build": "tsc",
-    "watch": "tsc -w",
-    "test": "jest"
+    "test": "jest",
+    "prettier": "cross-env prettier --check .",
+    "prettier:fix": "cross-env prettier --write .",
+    "lint": "cross-env eslint ./ --ext .ts",
+    "lint:fix": "cross-env eslint --fix ./ --ext .ts",
+    "format:all": "yarn prettier:fix && yarn lint:fix"
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.5.0",
+    "@typescript-eslint/parser": "^5.4.0",
     "@types/jest": "^26.0.10",
     "@types/node": "10.17.27",
     "aws-cdk-lib": "2.14.0",
     "constructs": "^10.0.0",
     "jest": "^26.4.2",
     "ts-jest": "^26.2.0",
-    "typescript": "~3.9.7",
-    "parse-duration": "^1.0.2"
+    "parse-duration": "^1.0.2",
+    "cross-env": "^7.0.3",
+    "eslint": "^8.10.0",
+    "eslint-config-prettier": "^8.4.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-jsdoc": "^37.9.4",
+    "eslint-plugin-unused-imports": "^2.0.0",
+    "prettier": "^2.5.1",
+    "typescript": "^4.5.5"
   },
   "peerDependencies": {
     "aws-cdk-lib": "2.14.0",
     "constructs": "^10.0.0"
-  }
+  },
+  "keywords": [
+    "aws-cdk",
+    "aws-cdk-construct",
+    "cdk",
+    "typescript",
+    "aws",
+    "cloudformation",
+    "cloud",
+    "workflows",
+    "scheduled",
+    "webhook",
+    "github",
+    "actions",
+    "lambda"
+  ]
 }

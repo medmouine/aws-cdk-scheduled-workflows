@@ -1,12 +1,3 @@
-# Welcome to your CDK TypeScript Construct Library project
+# AWS-CDK Scheduled Workflows 
 
-You should explore the contents of this project. It demonstrates a CDK Construct Library that includes a construct (`AwsWebhookScheduler`)
-which contains an Amazon SQS queue that is subscribed to an Amazon SNS topic.
-
-The construct defines an interface (`AwsWebhookSchedulerProps`) to configure the visibility timeout of the queue.
-
-## Useful commands
-
-* `npm run build`   compile typescript to js
-* `npm run watch`   watch for changes and compile
-* `npm run test`    perform the jest unit tests
+Documentation should be coming soon enough. For now you can refer to the tests for examples. Usage should be simple enough.

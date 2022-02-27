@@ -1,6 +1,6 @@
-import * as events from 'aws-cdk-lib/aws-events'
 import * as cdk from 'aws-cdk-lib'
-import {Construct} from 'constructs'
+import * as events from 'aws-cdk-lib/aws-events'
+import { Construct } from 'constructs'
 import parse from 'parse-duration'
 
 export type Cron = events.Schedule | events.CronOptions | string
@@ -12,16 +12,19 @@ export interface BaseTriggerProps {
 }
 
 export interface Trigger extends Construct {
-  target: events.IRuleTarget
+  targets?: events.IRuleTarget[]
 
   at(schedule: Cron): Trigger
+
   every(rate: Rate): Trigger
+
   schedule(): Trigger
 }
 
 export abstract class Trigger extends Construct implements Trigger {
-  public rule: events.Rule[] = []
-  abstract getTarget(): events.IRuleTarget
+  public rules: events.Rule[] = []
+
+  abstract getTarget(): events.IRuleTarget[] | undefined
 
   protected constructor(scope: Construct, id: string, props: BaseTriggerProps) {
     super(scope, id)
@@ -34,22 +37,28 @@ export abstract class Trigger extends Construct implements Trigger {
     }
   }
 
-  public at(schedule: Cron): Trigger {
-    this.rule.push(new events.Rule(this, 'TriggerScheduleRule', {
-      schedule: cronToSchedule(schedule),
-    }))
+  public at(schedule: Cron, enabled: boolean = true): Trigger {
+    this.addSchedule(cronToSchedule(schedule), enabled)
     return this
   }
-  public every(rate: Rate): Trigger {
-    this.rule.push(new events.Rule(this, 'TriggerRateRule', {
-      schedule: rateToSchedule(rate),
-    }))
+
+  public every(rate: Rate, enabled: boolean = true): Trigger {
+    this.addSchedule(rateToSchedule(rate), enabled)
     return this
   }
 
   public schedule(): Trigger {
-    this.rule.forEach(r => r.addTarget(this.getTarget()))
+    this.rules.forEach((r) => this.getTarget()?.forEach((t) => r.addTarget(t)))
     return this
+  }
+
+  private addSchedule(schedule: events.Schedule, enabled: boolean) {
+    this.rules.push(
+      new events.Rule(this, `TriggerScheduleRule-${this.rules.length}`, {
+        schedule,
+        enabled,
+      })
+    )
   }
 }
 

@@ -1,2 +1,2 @@
-export * from './Trigger';
-export * from './webhook';
+export * from './Trigger'
+export * from './webhook'

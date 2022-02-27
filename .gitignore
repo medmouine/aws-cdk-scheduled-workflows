@@ -12,3 +12,4 @@ cdk.out
 !lib/lambda/**/*.js
 !commons/src/lambda/**/*.js
 yarn-error.log
+.idea
