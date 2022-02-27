@@ -1,20 +1,17 @@
-import { Construct } from 'constructs';
-// import * as sqs from 'aws-cdk-lib/aws-sqs';
+import {Construct} from 'constructs';
+import {Trigger} from "./triggers/Trigger";
 
-export interface AwsGhWorkflowSchedulerProps {
-  // Define construct properties here
+export interface SchedulerProps {
+  triggers: Trigger[];
 }
 
-export class AwsGhWorkflowScheduler extends Construct {
+export class Scheduler extends Construct {
+  public readonly triggers: Trigger[];
 
-  constructor(scope: Construct, id: string, props: AwsGhWorkflowSchedulerProps = {}) {
+  constructor(scope: Construct, id: string, props: SchedulerProps) {
     super(scope, id);
-
-    // Define construct contents here
-
-    // example resource
-    // const queue = new sqs.Queue(this, 'AwsGhWorkflowSchedulerQueue', {
-    //   visibilityTimeout: cdk.Duration.seconds(300)
-    // });
+    this.triggers = props.triggers.map(trigger => trigger.schedule());
   }
 }
+
+export * from "./triggers";

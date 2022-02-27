@@ -1,0 +1,14 @@
+.DS_Store
+*.d.ts
+node_modules
+
+# CDK asset staging directory
+.cdk.staging
+cdk.out
+
+*.js
+!jest.config.js
+!.eslintrc.js
+!lib/lambda/**/*.js
+!commons/src/lambda/**/*.js
+yarn-error.log
