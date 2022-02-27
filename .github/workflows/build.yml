@@ -10,4 +10,4 @@ jobs:
           node-version-file: '.nvmrc'
           cache: 'yarn'
       - run: yarn
-      - run: yarn workspaces -pt run build
+      - run: yarn build
